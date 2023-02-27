@@ -1,0 +1,805 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "VGCA NextCloud",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/key-encryption": {
+            "get": {
+                "tags": [
+                    "keyEncryption"
+                ],
+                "description": "User uid",
+                "responses": {
+                    "200": {
+                        "description": "Trả về  tất cả key encrytion"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "keyEncryption"
+                ],
+                "description": "Cập nhật thông tin key encrytion",
+                "operationId": "updateKeyEncrytion",
+                "requestBody": {
+                    "description": "Update user object",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateKeyEncryptionSchema"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Trả về true hoặc false thể hiện thao tác thành công hay không"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "keyEncryption"
+                ],
+                "description": "Lưu key encrytion đối với mỗi user và room",
+                "operationId": "createKeyEncrytion",
+                "requestBody": {
+                    "description": "Create user object",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateKeyEncryptionSchema"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Trả về  key encrytion",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/KeyEncryptionSchema"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/key-encryption/rooms/{room_id}": {
+            "get": {
+                "tags": [
+                    "keyEncryption"
+                ],
+                "description": "room uid",
+                "operationId": "2bb001a3513d74b16908c9c57aeb8bf6",
+                "parameters": [
+                    {
+                        "name": "room_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "acca7421-d920-4751-b227-a21ef604f655"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Trả về  tất cả key encrytion của 1 room"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "keyEncryption"
+                ],
+                "description": "Xoá tất cả Key của 1 room",
+                "operationId": "deleteAllKey",
+                "parameters": [
+                    {
+                        "name": "room_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "acca7421-d920-4751-b227-a21ef604f655"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No content"
+                    }
+                }
+            }
+        },
+        "/api/key-encryption/rooms/{room_id}/users/{user_id}": {
+            "get": {
+                "tags": [
+                    "keyEncryption"
+                ],
+                "description": "get detail key encrytion by room uid and user uid",
+                "operationId": "c9533eab9fd31da3e056c51511e41e72",
+                "parameters": [
+                    {
+                        "name": "room_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "acca7421-d920-4751-b227-a21ef604f655"
+                        }
+                    },
+                    {
+                        "name": "user_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "acca7421-d920-4751-b227-a21ef604f655"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Trả về  key encrytion của 1 user trong room"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "keyEncryption"
+                ],
+                "description": "Xoá Key",
+                "operationId": "deleteKey",
+                "parameters": [
+                    {
+                        "name": "room_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "acca7421-d920-4751-b227-a21ef604f655"
+                        }
+                    },
+                    {
+                        "name": "user_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "acca7421-d920-4751-b227-a21ef604f655"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No content"
+                    }
+                }
+            }
+        },
+        "/api/users": {
+            "get": {
+                "tags": [
+                    "users"
+                ],
+                "description": "User uid",
+                "responses": {
+                    "200": {
+                        "description": "Trả về list user tokens"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "users"
+                ],
+                "description": "Lưu user và thông tin chứng thực của user (public key, x509 certificate)",
+                "operationId": "createUser",
+                "requestBody": {
+                    "description": "Create user object",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateUserSchema"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Trả về user",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UserSchema"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/users/{user_id}/public-key": {
+            "get": {
+                "tags": [
+                    "users"
+                ],
+                "description": "User uid",
+                "operationId": "06049cb9d208aa42edc81b8f3debd859",
+                "parameters": [
+                    {
+                        "name": "user_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "acca7421-d920-4751-b227-a21ef604f655"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Trả về public key"
+                    }
+                }
+            }
+        },
+        "/api/v2/users/{id}/public-key": {
+            "get": {
+                "tags": [
+                    "users v2"
+                ],
+                "description": "User uid",
+                "operationId": "bd9e5c31497a6cad695ebb24e8c26dba",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "1"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Trả về public key"
+                    }
+                }
+            }
+        },
+        "/api/users/{user_id}": {
+            "get": {
+                "tags": [
+                    "users"
+                ],
+                "description": "User uid",
+                "operationId": "6baa56c6e217bfa7593f8cd6c68fadf2",
+                "parameters": [
+                    {
+                        "name": "user_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "acca7421-d920-4751-b227-a21ef604f655"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Trả về user token"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "users"
+                ],
+                "description": "Cập nhật thông tin của User",
+                "operationId": "updateUser",
+                "parameters": [
+                    {
+                        "name": "user_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "acca7421-d920-4751-b227-a21ef604f655"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Update user object",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateUserSchema"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Trả về true hoặc false thể hiện thao tác thành công hay không"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "users"
+                ],
+                "description": "Xoá user",
+                "operationId": "deleteUser",
+                "parameters": [
+                    {
+                        "name": "user_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "acca7421-d920-4751-b227-a21ef604f655"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No content"
+                    }
+                }
+            }
+        },
+        "/api/v2/users/{id}": {
+            "get": {
+                "tags": [
+                    "users v2"
+                ],
+                "description": "User uid",
+                "operationId": "2b7a2b7f135d3e9d504bcf53c6f56b89",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "1"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Trả về user token"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "users v2"
+                ],
+                "description": "Cập nhật thông tin của User",
+                "operationId": "updateUser",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "1"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Update user object",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateUserSchema"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Trả về true hoặc false thể hiện thao tác thành công hay không"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "users v2"
+                ],
+                "description": "Xoá user",
+                "operationId": "deleteUser",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "1"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No content"
+                    }
+                }
+            }
+        },
+        "/api/users/verify-signature": {
+            "post": {
+                "tags": [
+                    "users"
+                ],
+                "description": "User",
+                "requestBody": {
+                    "description": "Create user object",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/VerifySignatureBody"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Trả về true hoặc false thể hiện signutare có hợp lệ hay không"
+                    }
+                }
+            }
+        },
+        "/api/v2/users/verify-signature": {
+            "post": {
+                "tags": [
+                    "users v2"
+                ],
+                "description": "User",
+                "requestBody": {
+                    "description": "Create user object",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/VerifySignatureBody_v2"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Trả về true hoặc false thể hiện signutare có hợp lệ hay không"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "VerifySignatureBody": {
+                "description": "Verify Signature Body",
+                "properties": {
+                    "user_id": {
+                        "nullable": false,
+                        "description": "User uid của nextcloud",
+                        "type": "string",
+                        "example": "acca7421-d920-4751-b227-a21ef604f655"
+                    },
+                    "signature": {
+                        "nullable": false,
+                        "description": "Loại token",
+                        "type": "string",
+                        "example": ""
+                    }
+                },
+                "type": "object"
+            },
+            "VerifySignatureBody_v2": {
+                "description": "Verify Signature Body",
+                "properties": {
+                    "id": {
+                        "nullable": false,
+                        "description": "id của user",
+                        "type": "string",
+                        "example": "1"
+                    },
+                    "signature": {
+                        "nullable": false,
+                        "description": "Loại token",
+                        "type": "string",
+                        "example": ""
+                    }
+                },
+                "type": "object"
+            },
+            "CreateKeyEncryptionSchema": {
+                "description": "Create Key Encryption User schema",
+                "properties": {
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "properties": {
+                                "user_id": {
+                                    "nullable": false,
+                                    "description": "User uid của nextcloud",
+                                    "type": "string",
+                                    "example": "acca7421-d920-4751-b227-a21ef604f655"
+                                },
+                                "room_id": {
+                                    "nullable": false,
+                                    "description": "Room uid",
+                                    "type": "string",
+                                    "example": "acca7421-d920-4751-b227-a21ef604f655"
+                                },
+                                "key_encryption": {
+                                    "nullable": false,
+                                    "description": "key encryption",
+                                    "type": "string",
+                                    "example": ""
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "KeyEncryptionSchema": {
+                "description": "Key Encryption schema",
+                "properties": {
+                    "user_id": {
+                        "nullable": false,
+                        "description": "User uid của nextcloud",
+                        "type": "string",
+                        "example": "acca7421-d920-4751-b227-a21ef604f655"
+                    },
+                    "room_id": {
+                        "nullable": false,
+                        "description": "Room uid",
+                        "type": "string",
+                        "example": "acca7421-d920-4751-b227-a21ef604f655"
+                    },
+                    "key_encryption": {
+                        "nullable": false,
+                        "description": "key encryption",
+                        "type": "string",
+                        "example": ""
+                    }
+                },
+                "type": "object"
+            },
+            "UpdateKeyEncryptionSchema": {
+                "description": "Update Key Encryption User schema",
+                "properties": {
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "properties": {
+                                "user_id": {
+                                    "nullable": false,
+                                    "description": "User uid của nextcloud",
+                                    "type": "string",
+                                    "example": "acca7421-d920-4751-b227-a21ef604f655"
+                                },
+                                "room_id": {
+                                    "nullable": false,
+                                    "description": "Room uid",
+                                    "type": "string",
+                                    "example": "acca7421-d920-4751-b227-a21ef604f655"
+                                },
+                                "key_encryption": {
+                                    "nullable": false,
+                                    "description": "key encryption",
+                                    "type": "string",
+                                    "example": ""
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "CreateUserSchema": {
+                "description": "Create User schema",
+                "properties": {
+                    "user_id or id": {
+                        "nullable": false,
+                        "description": "User uid của nextcloud",
+                        "type": "string",
+                        "example": "acca7421-d920-4751-b227-a21ef604f655 or 1,2,3"
+                    },
+                    "token_type": {
+                        "nullable": false,
+                        "description": "Loại token",
+                        "type": "string",
+                        "example": "Safenet EToken 5510"
+                    },
+                    "token_name": {
+                        "nullable": false,
+                        "description": "Tên Token",
+                        "type": "string",
+                        "example": "Token BCY"
+                    },
+                    "public_key": {
+                        "nullable": false,
+                        "description": "Public Key",
+                        "type": "string",
+                        "example": ""
+                    },
+                    "x509_cert": {
+                        "nullable": false,
+                        "description": "X509 certificate",
+                        "type": "string",
+                        "example": ""
+                    },
+                    "thumbprint": {
+                        "nullable": false,
+                        "description": "X509 certificate",
+                        "type": "string",
+                        "example": ""
+                    },
+                    "publicKeyNoXGCA_XML": {
+                        "nullable": false,
+                        "description": "X509 certificate",
+                        "type": "string",
+                        "example": ""
+                    },
+                    "publicKeyNoXGCA_Base64": {
+                        "nullable": false,
+                        "description": "X509 certificate",
+                        "type": "string",
+                        "example": ""
+                    },
+                    "note": {
+                        "nullable": true,
+                        "description": "Ghi chú",
+                        "type": "string",
+                        "example": ""
+                    }
+                },
+                "type": "object"
+            },
+            "UpdateUserSchema": {
+                "description": "Update User schema",
+                "properties": {
+                    "token_type": {
+                        "nullable": true,
+                        "description": "Loại token",
+                        "type": "string",
+                        "example": "Safenet EToken 5510"
+                    },
+                    "token_name": {
+                        "nullable": true,
+                        "description": "Tên Token",
+                        "type": "string",
+                        "example": "Token BCY"
+                    },
+                    "public_key": {
+                        "nullable": true,
+                        "description": "Public Key",
+                        "type": "string",
+                        "example": ""
+                    },
+                    "x509_cert": {
+                        "nullable": true,
+                        "description": "X509 certificate",
+                        "type": "string",
+                        "example": ""
+                    },
+                    "thumbprint": {
+                        "nullable": true,
+                        "description": "X509 certificate",
+                        "type": "string",
+                        "example": ""
+                    },
+                    "publicKeyNoXGCA_XML": {
+                        "nullable": true,
+                        "description": "X509 certificate",
+                        "type": "string",
+                        "example": ""
+                    },
+                    "publicKeyNoXGCA_Base64": {
+                        "nullable": true,
+                        "description": "X509 certificate",
+                        "type": "string",
+                        "example": ""
+                    },
+                    "note": {
+                        "nullable": true,
+                        "description": "Ghi chú",
+                        "type": "string",
+                        "example": ""
+                    }
+                },
+                "type": "object"
+            },
+            "UserSchema": {
+                "description": "User schema",
+                "properties": {
+                    "id": {
+                        "nullable": false,
+                        "description": "Primary key",
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "user_id": {
+                        "nullable": false,
+                        "description": "User uid của nextcloud",
+                        "type": "string",
+                        "example": "acca7421-d920-4751-b227-a21ef604f655"
+                    },
+                    "token_type": {
+                        "nullable": false,
+                        "description": "Loại token",
+                        "type": "string",
+                        "example": "Safenet EToken 5510"
+                    },
+                    "token_name": {
+                        "nullable": false,
+                        "description": "Tên Token",
+                        "type": "string",
+                        "example": "Token BCY"
+                    },
+                    "public_key": {
+                        "nullable": false,
+                        "description": "Public Key",
+                        "type": "string",
+                        "example": ""
+                    },
+                    "x509_cert": {
+                        "nullable": false,
+                        "description": "X509 certificate",
+                        "type": "string",
+                        "example": ""
+                    },
+                    "publicKeyNoXGCA_XML": {
+                        "nullable": false,
+                        "description": "X509 certificate",
+                        "type": "string",
+                        "example": ""
+                    },
+                    "publicKeyNoXGCA_Base64": {
+                        "nullable": false,
+                        "description": "X509 certificate",
+                        "type": "string",
+                        "example": ""
+                    },
+                    "thumbprint": {
+                        "nullable": false,
+                        "description": "X509 certificate",
+                        "type": "string",
+                        "example": ""
+                    },
+                    "note": {
+                        "nullable": true,
+                        "description": "Ghi chú",
+                        "type": "string",
+                        "example": ""
+                    }
+                },
+                "type": "object"
+            }
+        }
+    },
+    "security": [
+        []
+    ]
+}
